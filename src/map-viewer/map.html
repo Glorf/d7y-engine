@@ -1,16 +1,23 @@
 <html>
 <head>
-	
+  <title>Diplomacy map viewer</title>
 </head>
 </html>
 <body>
 <style>
 	#nwg:hover path, #nth:hover path, #swi:hover polygon, #adr:hover polygon, #aeg:hover polygon, #alb:hover polygon, #ank:hover polygon, #apu:hover polygon, #arm:hover polygon, #bal:hover polygon, #bar:hover polygon, #bel:hover polygon, #ber:hover polygon, #bla:hover polygon, #boh:hover polygon, #bre:hover polygon, #bud:hover polygon, #bul:hover polyline, #bur:hover polygon, #cly:hover polygon, #con:hover polygon, #den:hover polygon, #eas:hover polygon, #edi:hover polygon, #eng:hover polygon, #fin:hover polygon, #gal:hover polygon, #gas:hover polygon, #gre:hover polygon, #lyo:hover polygon, #bot:hover polygon, #hel:hover polygon, #hol:hover polygon, #ion:hover polygon, #iri:hover polygon, #kie:hover polygon, #lvp:hover polygon, #lvn:hover polygon, #lon:hover polygon, #mar:hover polygon, #mao:hover polygon, #mos:hover polygon, #mun:hover polygon, #nap:hover polygon, #nao:hover polygon, #naf:hover polygon, #nwy:hover polygon, #par:hover polygon, #pic:hover polygon, #pie:hover polygon, #por:hover polygon, #pru:hover polygon, #rom:hover polygon, #ruh:hover polygon, #rum:hover polygon, #ser:hover polygon, #sev:hover polygon, #sil:hover polygon, #ska:hover polygon, #smy:hover polygon, #spa:hover polyline, #stp:hover polyline, #swe:hover polygon, #syr:hover polygon, #tri:hover polygon, #tun:hover polygon, #tus:hover polygon, #tyr:hover polygon, #tys:hover polygon, #ukr:hover polygon, #ven:hover polygon, #vie:hover polygon, #wal:hover polygon, #war:hover polygon, #wes:hover polygon, #yor:hover polygon {
-			fill: #ff0000;
+		fill: #ff0000;
 	}
+  .unit {
+    display: none;
+  }
 </style>
+<button onclick="loadUnits()">Load units!</button>
 <h1 id="title">text</h1>
-<svg height="2000px" width="2000px" >
+<svg id="map" height="2000px" width="2000px">
+  <style>
+    .unit{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
+  </style>
 	<g id="New_Layer">
 	  <g id="nwg">
 	    <path fill-rule="evenodd" clip-rule="evenodd" fill="#00AEEF" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" d="
@@ -660,10 +667,128 @@
 	      <circle fill-rule="evenodd" clip-rule="evenodd" stroke="#FFFFFF" stroke-miterlimit="10" cx="207.321" cy="257.86" r="1.928"/>
 	    </g>
 	  </g>
-	</g>
-	</svg>
-	<script>
-
+  </g>
+  <rect x="77.1" y="111.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -57.3483 89.3566)" class="unit" width="4.2" height="4.2" id="a-edi"/>
+  <rect x="78" y="137.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -75.4132 97.5875)" class="unit" width="4.2" height="4.2" id="a-yor"/>
+  <rect x="67.9" y="108.1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -57.421 81.7814)" class="unit" width="4.2" height="4.2" id="a-cly"/>
+  <rect x="70.3" y="126.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -69.8233 88.8805)" class="unit" width="4.2" height="4.2" id="a-lvp"/>
+  <rect x="68" y="145.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -83.9989 92.8595)" class="unit" width="4.2" height="4.2" id="a-wal"/>
+  <rect x="105" y="150.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -76.6977 120.4868)" class="unit" width="4.2" height="4.2" id="a-hol"/>
+  <rect x="96" y="165.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -89.9402 118.5162)" class="unit" width="4.2" height="4.2" id="a-bel"/>
+  <rect x="96" y="182.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -101.961 123.4952)" class="unit" width="4.2" height="4.2" id="a-bur"/>
+  <rect x="78" y="182.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -107.2329 110.7674)" class="unit" width="4.2" height="4.2" id="a-par"/>
+  <rect x="66" y="180.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -109.3333 101.6963)" class="unit" width="4.2" height="4.2" id="a-bre"/>
+  <rect x="38" y="232.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -154.3036 97.1275)" class="unit" width="4.2" height="4.2" id="a-spa"/>
+  <rect x="63" y="272.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -175.2656 126.5206)" class="unit" width="4.2" height="4.2" id="a-naf"/>
+  <rect x="103" y="274.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -164.9643 155.3905)" class="unit" width="4.2" height="4.2" id="a-tun"/>
+  <rect x="13" y="222.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -154.5547 76.521)" class="unit" width="4.2" height="4.2" id="a-por"/>
+  <rect x="69" y="200.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -122.5968 109.6754)" class="unit" width="4.2" height="4.2" id="a-gas"/>
+  <rect x="91" y="206.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -120.3959 126.9889)" class="unit" width="4.2" height="4.2" id="a-mar"/>
+  <rect x="107" y="206.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -115.7097 138.3026)" class="unit" width="4.2" height="4.2" id="a-pie"/>
+  <rect x="108" y="167.7" transorm="matrix(0.7071 -0.7071 0.7071 0.7071 -87.8398 127.5872)" class="unit" width="4.2" height="4.2" id="a-ruh"/>
+  <rect x="118" y="179.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -93.3962 138.1728)" class="unit" width="4.2" height="4.2" id="a-mun"/>
+  <rect x="119" y="156.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -76.8398 132.1436)" class="unit" width="4.2" height="4.2" id="a-kie"/>
+  <rect x="149" y="211.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -106.944 169.4654)" class="unit" width="4.2" height="4.2" id="a-tri"/>
+  <rect x="136" y="193.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -98.0236 155.0011)" class="unit" width="4.2" height="4.2" id="a-tyr"/>
+  <rect x="140" y="175.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -84.1242 152.5576)" class="unit" width="4.2" height="4.2" id="a-boh"/>
+  <rect x="170" y="200.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -93.0153 181.0928)" class="unit" width="4.2" height="4.2" id="a-bud"/>
+  <rect x="167" y="219.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -107.3288 184.5364)" class="unit" width="4.2" height="4.2" id="a-ser"/>
+  <rect x="152" y="186.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -88.3877 164.2645)" class="unit" width="4.2" height="4.2" id="a-vie"/>
+  <rect x="182" y="178.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -73.9443 183.1346)" class="unit" width="4.2" height="4.2" id="a-gal"/>
+  <rect x="200" y="210.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -91.2997 205.2348)" class="unit" width="4.2" height="4.2" id="a-rum"/>
+  <rect x="193" y="225.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -103.9565 204.6784)" class="unit" width="4.2" height="4.2" id="a-bul"/>
+  <rect x="134" y="149.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -67.4969 140.6999)" class="unit" width="4.2" height="4.2" id="a-ber"/>
+  <rect x="124" y="126.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -54.1623 126.8925)" class="unit" width="4.2" height="4.2" id="a-pic"/>
+  <rect x="85" y="168.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -95.2832 111.6166)" class="unit" width="4.2" height="4.2"  id="a-pic"/>
+  <rect x="175" y="162.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -64.6809 173.4987)" class="unit" width="4.2" height="4.2" id="a-war"/>
+  <rect x="146" y="164.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -74.5888 153.5784)" class="unit" width="4.2" height="4.2" id="a-sil"/>
+  <rect x="169" y="145.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -54.4174 164.277)" class="unit" width="4.2" height="4.2" id="a-pru"/>
+  <rect x="125" y="96.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -32.6563 118.813)" class="unit" width="4.2" height="4.2" id="a-nwy"/>
+  <rect x="145" y="107.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.5767 136.1768)" class="unit" width="4.2" height="4.2" id="a-swe"/>
+  <rect x="186" y="85.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -7.0121 158.7246)" class="unit" width="4.2" height="4.2" id="a-fin"/>
+  <rect x="186" y="135.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -42.3673 173.3689)" class="unit" width="4.2" height="4.2" id="a-lvn"/>
+  <rect x="222" y="92.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -1.4179 186.2305)" class="unit" width="4.2" height="4.2" id="a-stp"/>
+  <rect x="221" y="135.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -32.1163 198.1175)" class="unit" width="4.2" height="4.2" id="a-mos"/>
+  <rect x="208" y="172.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -62.0866 199.762)" class="unit" width="4.2" height="4.2" id="a-ukr"/>
+  <rect x="258" y="168.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -44.6139 233.9456)" class="unit" width="4.2" height="4.2" id="a-sev"/>
+  <rect x="216" y="244.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -110.655 226.5066)" class="unit" width="4.2" height="4.2" id="a-con"/>
+  <rect x="244" y="234.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -95.3831 243.3767)" class="unit" width="4.2" height="4.2" id="a-ank"/>
+  <rect x="281" y="232.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -83.1321 268.9538)" class="unit" width="4.2" height="4.2" id="a-arm"/>
+  <rect x="273" y="259.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -104.5671 271.2049)" class="unit" width="4.2" height="4.2" id="a-syr"/>
+  <rect x="241" y="253.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -109.6968 246.8202)" class="unit" width="4.2" height="4.2" id="a-smy"/>
+  <rect x="164" y="235.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -119.5212 187.1012)" class="unit" width="4.2" height="4.2" id="a-alb"/>
+  <rect x="173" y="248.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -126.0776 197.2727)" class="unit" width="4.2" height="4.2" id="a-gre"/>
+  <rect x="145" y="239.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -127.9144 174.8378)" class="unit" width="4.2" height="4.2" id="a-apu"/>
+  <rect x="120" y="217.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -119.6803 150.7167)" class="unit" width="4.2" height="4.2" id="a-tus"/>
+  <rect x="128" y="228.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -125.1154 159.5953)" class="unit" width="4.2" height="4.2" id="a-rom"/>
+  <rect x="122" y="209.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -113.4377 149.7879)" class="unit" width="4.2" height="4.2" id="a-ven"/>
+  <rect x="146" y="249.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -134.6926 178.4738)" class="unit" width="4.2" height="4.2" id="a-nap"/>
+  <rect x="168" y="107.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 16.1693 248.6468)" class="unit" width="4.2" height="12" id="f-bot"/>
+  <rect x="158" y="126.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 -9.5944 253.0705)" class="unit" width="4.2" height="12" id="f-bal"/>
+  <rect x="105.1" y="50.7" class="unit" width="12" height="4.2" id="f-nwg"/>
+  <rect x="95.1" y="114.7" class="unit" width="12" height="4.2" id="f-nhh"/>
+  <rect x="110" y="132.8" class="unit" width="4.2" height="12" id="f-hel"/>
+  <rect x="25" y="93.8" class="unit" width="4.2" height="12" id="f-nao"/>
+  <rect x="23" y="169.8" class="unit" width="4.2" height="12" id="f-mao"/>
+  <rect x="208.1" y="24.7" class="unit" width="12" height="4.2" id="f-bar"/>
+  <rect x="83.1" y="228.7" class="unit" width="12" height="4.2" id="f-lyo"/>
+  <rect x="142.1" y="277.7" class="unit" width="12" height="4.2" id="f-ion"/>
+  <rect x="121.1" y="248.7" class="unit" width="12" height="4.2" id="f-tys"/>
+  <rect x="76.1" y="250.7" class="unit" width="12" height="4.2" id="f-wes"/>
+  <rect x="229.1" y="277.7" class="unit" width="12" height="4.2" id="f-eas"/>
+  <rect x="195" y="260.8" class="unit" width="4.2" height="12" id="f-aeg"/>
+  <rect x="232.1" y="214.7" class="unit" width="12" height="4.2" id="f-bla"/>
+  <rect x="142" y="220.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -118.1475 168.3342)" class="unit" width="4.2" height="12" id="f-adr"/>
+  <rect x="109" y="266.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -160.3397 158.473)" class="unit" width="4.2" height="12" id="f-tun"/>
+  <rect x="15.1" y="256.7" class="unit" width="12" height="4.2" id="f-naf"/>
+  <rect x="52.1" y="160.7" class="unit" width="12" height="4.2" id="f-eng"/>
+  <rect x="40.1" y="146.7" class="unit" width="12" height="4.2" id="f-iri"/>
+  <rect x="63" y="146.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -88.961 90.799)" class="unit" width="4.2" height="12" id="f-wal"/>
+  <rect x="77.1" y="153.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -85.8483 104.3949)" class="unit" width="12" height="4.2" id="f-lon"/>
+  <rect x="97.1" y="149.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -77.1621 117.3655)" class="unit" width="12" height="4.2" id="f-hol"/>
+  <rect x="91" y="157.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -88.538 113.8196)" class="unit" width="4.2" height="12" id="f-bel"/>
+  <rect x="80" y="162.8" transform="matrix(0.515 -0.8572 0.8572 0.515 -104.8559 152.2605)" class="unit" width="4.2" height="12" id="f-pic"/>
+  <rect x="55.3" y="171.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -105.1095 94.3118)" class="unit" width="12" height="4.2" id="f-bre"/>
+  <rect x="57.3" y="196.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -122.2012 103.0482)" class="unit" width="12" height="4.2" id="f-gas"/>
+  <rect x="10.3" y="213.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -147.9877 74.7934)" class="unit" width="12" height="4.2" id="f-por"/>
+  <rect x="38.2" y="196" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -131.0082 87.6776)" class="unit" width="4.2" height="12" id="f-spa-n"/>
+  <rect x="51.3" y="235.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -151.5355 110.2282)" class="unit" width="12" height="4.2" id="f-spa-s"/>
+  <rect x="79.3" y="214.9" class="unit" width="12" height="4.2" id="f-mar"/>
+  <rect x="108.2" y="207.1" class="unit" width="4.2" height="12" id="f-pie"/>
+  <rect x="208.3" y="267.9" class="unit" width="12" height="4.2" id="f-smy"/>
+  <rect x="258.2" y="199.1" class="unit" width="4.2" height="12" id="f-sev"/>
+  <rect x="254" y="221.8" class="unit" width="4.2" height="12" id="f-ank"/>
+  <rect x="210" y="207.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 -49.2899 363.3331)" class="unit" width="4.2" height="12" id="f-rum"/>
+  <rect x="202.1" y="223.7" class="unit" width="12" height="4.2" id="f-bul-e"/>
+  <rect x="271" y="217.8" transform="matrix(0.5 -0.866 0.866 0.5 -57.25 348.4051)" class="unit" width="4.2" height="12" id="f-arm"/>
+  <rect x="219" y="228.8" class="unit" width="4.2" height="12" id="f-con"/>
+  <rect x="252.1" y="273.7" class="unit" width="12" height="4.2" id="f-syr"/>
+  <rect x="173.1" y="266.7" class="unit" width="12" height="4.2" id="f-gre"/>
+  <rect x="194" y="231.8" class="unit" width="4.2" height="12" id="f-bul-s"/>
+  <rect x="130" y="213.8" transform="matrix(0.866 -0.5 0.5 0.866 -92.19 95.5171)" class="unit" width="4.2" height="12" id="f-ven"/>
+  <rect x="150" y="219.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -115.0973 173.6981)" class="unit" width="4.2" height="12" id="f-tri"/>
+  <rect x="143" y="230.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -124.9257 171.9703)" class="unit" width="4.2" height="12" id="f-apu"/>
+  <rect x="144" y="252.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -140.189 179.121)" class="unit" width="4.2" height="12" id="f-nap"/>
+  <rect x="161" y="235.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -123.189 186.1625)" class="unit" width="4.2" height="12"  id="f-alb"/>
+  <rect x="121.1" y="236.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -131.6508 159.8171)" class="unit" width="12" height="4.2" id="f-rom"/>
+  <rect x="112.1" y="223.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -125.0945 149.6456)" class="unit" width="12" height="4.2" id="f-tus"/>
+  <rect x="193" y="104.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 37.5967 270.5704)" class="unit" width="4.2" height="12" id="f-stp-s"/>
+  <rect x="174" y="99.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 28.3436 248.5125)" class="unit" width="4.2" height="12" id="f-fin"/>
+  <rect x="114.1" y="87.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -28.3426 111.2273)" class="unit" width="12" height="4.2" id="f-nwy"/>
+  <rect x="150.1" y="116.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -38.3047 145.1768)" class="unit" width="12" height="4.2" id="f-swe"/>
+  <rect x="168.1" y="121.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -36.5683 159.3691)" class="unit" width="12" height="4.2" id="f-lvn"/>
+  <rect x="152.1" y="141.7" class="unit" width="12" height="4.2" id="f-pru"/>
+  <rect x="137" y="142.8" class="unit" width="4.2" height="12" id="f-ber"/>
+  <rect x="118.1" y="141.7" class="unit" width="12" height="4.2" id="f-kie"/>
+  <rect x="127" y="128.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 -34.5032 224.6103)" class="unit" width="4.2" height="12" id="f-den"/>
+  <rect x="122.1" y="116.7" transform="matrix(0.9659 -0.2588 0.2588 0.9659 -26.3841 37.1986)" class="unit" width="12" height="4.2" id="f-ska"/>
+  <rect x="212" y="35.8" transform="matrix(0.2588 -0.9659 0.9659 0.2588 118.3259 237.7802)" class="unit" width="4.2" height="12" id="f-stp-n"/>
+  <rect x="63.1" y="103.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -54.5935 79.8512)" class="unit" width="12" height="4.2" id="f-cly"/>
+  <rect x="81" y="127.8" class="unit" width="4.2" height="12" id="f-yor"/>
+  <rect x="62.1" y="131.7" class="unit" width="12" height="4.2" id="f-lvp"/>
+  <rect x="79" y="111.8" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -59.5261 91.8612)" class="unit" width="4.2" height="12" id="f-edi"/>
+</svg>
+<script>
 const data = {"swi":{
   "name":"Switzerland",
   "type":"l",
@@ -1198,13 +1323,9 @@ const data = {"swi":{
 }}
 for(let key in data) {
 	const countryOnMap = document.getElementById(key)
-	// if (data[key].name === "Warsaw"){
-	// 	countryOnMap.children[0].style.fill = "#0ff000"
-	// }
 	countryOnMap.addEventListener("mouseover", function(){
 		const header = document.getElementById("title")
-		const id = this.id
-		header.innerHTML = ":" + id
+		header.innerHTML = data[this.id].name
 		if(data[id].type === "w"){
 			header.style.color = "#0000ff"
 		} else {
