@@ -1,17 +1,4 @@
 {
-   "swi":{
-      "name":"Switzerland",
-      "type":"l",
-      "neighbours":[
-         "bur",
-         "mun",
-         "tyr",
-         "pie",
-         "mar"
-      ],
-      "army_type":"",
-      "belongs_to":""
-   },
    "adr":{
       "name":"Adriatic Sea",
       "type":"w",
@@ -218,7 +205,6 @@
          "bel",
          "ruh",
          "mun",
-         "swi",
          "mar",
          "gas"
       ],
@@ -502,7 +488,6 @@
       "neighbours":[
          "gas",
          "bur",
-         "swi",
          "pie",
          "lyo",
          "spa"
@@ -549,7 +534,6 @@
          "sil",
          "boh",
          "tyr",
-         "swi",
          "bur"
       ],
       "army_type":"",
@@ -670,7 +654,6 @@
       "type":"l",
       "neighbours":[
          "mar",
-         "swi",
          "tyr",
          "ven",
          "tus",
