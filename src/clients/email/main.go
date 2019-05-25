@@ -1,118 +1,106 @@
 package main
 
 import (
-	"flag"
+	"context"
 	"fmt"
-	"github.com/flashmob/go-guerrilla"
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/mail"
-	//"github.com/go-redis/redis"
-	"log"
-	"net/smtp"
-	"os"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
+
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ses"
 )
 
-type Mailer struct {
-	sendServer string
-	sendUser string
-	sendPassword string
-	sendPort string
-	hostname string
-}
+const (
+	// The subject line for the email.
+	Subject = "Amazon SES Test (AWS SDK for Go)"
 
-func (m Mailer) sendMail(sender string, recipent string, body string, subject string, replyto string) {
-	// Set up authentication information.
-	auth := smtp.PlainAuth(
-		"",
-		m.sendUser,
-		m.sendPassword,
-		m.sendServer,
-	)
+	// The HTML body for the email.
+	HtmlBody =  "<h1>Amazon SES Test Email (AWS SDK for Go)</h1><p>This email was sent with " +
+		"<a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the " +
+		"<a href='https://aws.amazon.com/sdk-for-go/'>AWS SDK for Go</a>.</p>"
 
-	err := smtp.SendMail(
-		m.sendServer+":"+m.sendPort,
-		auth,
-		sender,
-		[]string{recipent},
-		[]byte("To:"+recipent+"\r\nSubject: "+subject+"\r\nReply-To: "+replyto+"\r\n\r\n" + body),
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+	//The email body for recipients with non-HTML email clients.
+	TextBody = "This email was sent with Amazon SES using the AWS SDK for Go."
+
+	// The character encoding for the email.
+	CharSet = "UTF-8"
+)
+
+func handler(ctx context.Context, sesEvent events.SimpleEmailEvent) {
+	for _, record := range sesEvent.Records {
+		sesRecord := record.SES
+
+		//To add in additional fields to publish to the logs add "snsRecord.'fieldname'"
+		fmt.Printf("Message = %s \n", sesRecord.Mail)
 
 
-var DiplomacyProcessor = func() backends.Decorator {
-	return func(p backends.Processor) backends.Processor {
-		return backends.ProcessWith(
-			func(e *mail.Envelope, task backends.SelectTask) (backends.Result, error) {
-				if task == backends.TaskValidateRcpt {
-
-					//TODO: check for user in redis by uuid of receiver
-					//e.RcptTo ==
-
-					//if not found:
-					/* return backends.NewResult(
-					   response.Canned.FailNoSenderDataCmd),
-					   backends.NoSuchUser
-					*/
-					// if no error:
-					return p.Process(e, task)
-				} else if task == backends.TaskSaveMail {
-
-					//TODO: check before saving to redis, then save to queue
-
-					// if you want your processor to do some processing after
-					// receiving the email, continue here.
-					// if want to stop processing, return
-					// errors.New("Something went wrong")
-					// return backends.NewBackendResult(fmt.Sprintf("554 Error: %s", err)), err
-					// call the next processor in the chain
-					return p.Process(e, task)
-				}
-				return p.Process(e, task)
-			},
+		sess, err := session.NewSession(&aws.Config{
+			Region:aws.String("us-west-2")},
 		)
+		svc := ses.New(sess)
+
+		// Assemble the email.
+		input := &ses.SendEmailInput{
+			Destination: &ses.Destination{
+				CcAddresses: []*string{
+				},
+				ToAddresses: []*string{
+					aws.String(sesRecord.Mail.Source),
+				},
+			},
+			Message: &ses.Message{
+				Body: &ses.Body{
+					Html: &ses.Content{
+						Charset: aws.String(CharSet),
+						Data:    aws.String(HtmlBody),
+					},
+					Text: &ses.Content{
+						Charset: aws.String(CharSet),
+						Data:    aws.String(TextBody),
+					},
+				},
+				Subject: &ses.Content{
+					Charset: aws.String(CharSet),
+					Data:    aws.String(Subject),
+				},
+			},
+			Source: aws.String(sesRecord.Mail.Destination[0]),
+			// Uncomment to use a configuration set
+			//ConfigurationSetName: aws.String(ConfigurationSet),
+		}
+
+		// Attempt to send the email.
+		result, err := svc.SendEmail(input)
+
+		// Display error messages if they occur.
+		if err != nil {
+			if aerr, ok := err.(awserr.Error); ok {
+				switch aerr.Code() {
+				case ses.ErrCodeMessageRejected:
+					fmt.Println(ses.ErrCodeMessageRejected, aerr.Error())
+				case ses.ErrCodeMailFromDomainNotVerifiedException:
+					fmt.Println(ses.ErrCodeMailFromDomainNotVerifiedException, aerr.Error())
+				case ses.ErrCodeConfigurationSetDoesNotExistException:
+					fmt.Println(ses.ErrCodeConfigurationSetDoesNotExistException, aerr.Error())
+				default:
+					fmt.Println(aerr.Error())
+				}
+			} else {
+				// Print the error, cast err to awserr.Error to get the Code and
+				// Message from an error.
+				fmt.Println(err.Error())
+			}
+
+			return
+		}
+
+		fmt.Println(result)
 	}
 }
 
-func (m Mailer) startListener() {
-	cfg := &guerrilla.AppConfig{}
-	sc := guerrilla.ServerConfig{
-		ListenInterface: "0.0.0.0:587",
-		IsEnabled:true,
-	}
-	cfg.Servers = append(cfg.Servers, sc)
-	bcfg := backends.BackendConfig{
-		"save_workers_size":  3,
-		"save_process":      "HeadersParser|Header|Debugger|Diplomacy",
-		"log_received_mails": true,
-		"primary_mail_host" : m.hostname,
-
-	}
-
-	cfg.BackendConfig = bcfg
-
-	d := guerrilla.Daemon{Config: cfg}
-	d.AddProcessor("Diplomacy", DiplomacyProcessor)
-	err := d.Start()
-
-	if err != nil {
-		fmt.Println("Server error!")
-	}
-}
 
 func main() {
-	mailer := Mailer{
-		sendServer: *flag.String("sender-server", "localhost", "Setup outbound smtp server"),
-		sendPort: *flag.String("sender-port", "25", "Setup outbound smtp port"),
-		sendUser: os.Getenv("DIPLOMACY_SMTP_USER"),
-		sendPassword: os.Getenv("DIPLOMACY_SMTP_PASSWORD"),
-		hostname: *flag.String("host", "diplomacy.mbien.pl", "Game server hostname"),
-
-	}
-
-	flag.Parse()
-	mailer.sendMail("no-reply@diplomacy.mbien.pl","michal@mbien.pl", "Hello", "Diplomacy", "some-uuid@diplomacy.mbien.pl")
-	mailer.startListener()
+	lambda.Start(handler)
 }
