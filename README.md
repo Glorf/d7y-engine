@@ -1,2 +1,1 @@
-# d7y-engine
-Diplomacy engine
+# Diplomacy correspondence game
