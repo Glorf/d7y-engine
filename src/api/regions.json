@@ -1,7 +1,7 @@
 {
    "adr":{
       "name":"Adriatic Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "tri",
          "alb",
@@ -14,7 +14,7 @@
    },
    "aeg":{
       "name":"Aegean Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "con",
          "smy",
@@ -28,7 +28,7 @@
    },
    "alb":{
       "name":"Albania",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "tri",
          "ser",
@@ -41,7 +41,7 @@
    },
    "ank":{
       "name":"Ankara",
-      "type":"T",
+      "type":"turkey_staring_poimt",
       "neighbours":[
          "bla",
          "arm",
@@ -53,7 +53,7 @@
    },
    "apu":{
       "name":"Apulia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "adr",
          "opn",
@@ -66,7 +66,7 @@
    },
    "arm":{
       "name":"Armenia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "sev",
          "bla",
@@ -79,7 +79,7 @@
    },
    "bal":{
       "name":"Baltic Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "bot",
          "lvn",
@@ -94,7 +94,7 @@
    },
    "bar":{
       "name":"Barents Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "nwg",
          "nwy",
@@ -105,7 +105,7 @@
    },
    "bel":{
       "name":"Belgium",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "hol",
          "ruh",
@@ -131,7 +131,7 @@
    },
    "bla":{
       "name":"Black Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "sev",
          "arm",
@@ -145,7 +145,7 @@
    },
    "boh":{
       "name":"Bohemia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "sil",
          "gal",
@@ -158,7 +158,7 @@
    },
    "bre":{
       "name":"Brest",
-      "type":"F",
+      "type":"france_staring_poimt",
       "neighbours":[
          "par",
          "gas",
@@ -171,7 +171,7 @@
    },
    "bud":{
       "name":"Budapest",
-      "type":"A",
+      "type":"austria_staring_poimt",
       "neighbours":[
          "rum",
          "ser",
@@ -184,7 +184,7 @@
    },
    "bul":{
       "name":"Bulgaria",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "bla",
          "con",
@@ -198,7 +198,7 @@
    },
    "bur":{
       "name":"Burgundy",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "par",
          "pic",
@@ -213,7 +213,7 @@
    },
    "cly":{
       "name":"Clyde",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "nao",
          "nwg",
@@ -225,7 +225,7 @@
    },
    "con":{
       "name":"Constantinople",
-      "type":"T",
+      "type":"turkey_staring_poimt",
       "neighbours":[
          "bla",
          "ank",
@@ -238,7 +238,7 @@
    },
    "den":{
       "name":"Denmark",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "ska",
          "swe",
@@ -252,7 +252,7 @@
    },
    "eas":{
       "name":"Eastern Mediterranean",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "syr",
          "smy",
@@ -264,7 +264,7 @@
    },
    "edi":{
       "name":"Edinburgh",
-      "type":"E",
+      "type":"england_staring_poimt",
       "neighbours":[
          "cly",
          "nwg",
@@ -277,7 +277,7 @@
    },
    "eng":{
       "name":"English Channel",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "iri",
          "mao",
@@ -293,7 +293,7 @@
    },
    "fin":{
       "name":"Finland",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "swe",
          "nwy",
@@ -305,7 +305,7 @@
    },
    "gal":{
       "name":"Galicia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "ukr",
          "rum",
@@ -320,7 +320,7 @@
    },
    "gas":{
       "name":"Gascony",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "bre",
          "par",
@@ -334,7 +334,7 @@
    },
    "gre":{
       "name":"Greece",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "ion",
          "aeg",
@@ -347,7 +347,7 @@
    },
    "lyo":{
       "name":"Gulf of Lyon",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "wes",
          "spa",
@@ -361,7 +361,7 @@
    },
    "bot":{
       "name":"Gulf of Bothnia",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "swe",
          "fin",
@@ -374,7 +374,7 @@
    },
    "hel":{
       "name":"Helgoland Bight",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "den",
          "kie",
@@ -386,7 +386,7 @@
    },
    "hol":{
       "name":"Holland",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "kie",
          "ruh",
@@ -399,7 +399,7 @@
    },
    "ion":{
       "name":"Ionian Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "eas",
          "aeg",
@@ -416,7 +416,7 @@
    },
    "iri":{
       "name":"Irish Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "nao",
          "lvp",
@@ -444,7 +444,7 @@
    },
    "lvp":{
       "name":"Liverpool",
-      "type":"E",
+      "type":"england_staring_poimt",
       "neighbours":[
          "iri",
          "nao",
@@ -458,7 +458,7 @@
    },
    "lvn":{
       "name":"Livonia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "bot",
          "stp",
@@ -472,7 +472,7 @@
    },
    "lon":{
       "name":"London",
-      "type":"E",
+      "type":"england_staring_poimt",
       "neighbours":[
          "yor",
          "nth",
@@ -484,7 +484,7 @@
    },
    "mar":{
       "name":"Marseilles",
-      "type":"F",
+      "type":"france_staring_poimt",
       "neighbours":[
          "gas",
          "bur",
@@ -496,7 +496,7 @@
       "belongs_to":""
    },
    "mao":{
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "naf",
          "wes",
@@ -513,7 +513,7 @@
    },
    "mos":{
       "name":"Moscow",
-      "type":"R",
+      "type":"russia_staring_poimt",
       "neighbours":[
          "stp",
          "lvn",
@@ -541,7 +541,7 @@
    },
    "nap":{
       "name":"Naples",
-      "type":"I",
+      "type":"italy_staring_poimt",
       "neighbours":[
          "apu",
          "ion",
@@ -553,7 +553,7 @@
    },
    "nao":{
       "name":"North Atlantic Ocean",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "nwg",
          "cly",
@@ -566,7 +566,7 @@
    },
    "naf":{
       "name":"North Africa",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "tun",
          "wes",
@@ -577,7 +577,7 @@
    },
    "nth":{
       "name":"North Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "nwg",
          "nwy",
@@ -596,7 +596,7 @@
    },
    "nwy":{
       "name":"Norway",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "nth",
          "nwg",
@@ -612,7 +612,7 @@
    },
    "nwg":{
       "name":"Norwegian Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "nao",
          "cly",
@@ -626,7 +626,7 @@
    },
    "par":{
       "name":"Paris",
-      "type":"F",
+      "type":"france_staring_poimt",
       "neighbours":[
          "bre",
          "pic",
@@ -638,7 +638,7 @@
    },
    "pic":{
       "name":"Picardy",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "bel",
          "bur",
@@ -651,7 +651,7 @@
    },
    "pie":{
       "name":"Piedmont",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "mar",
          "tyr",
@@ -664,7 +664,7 @@
    },
    "por":{
       "name":"Portugal",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "mao",
          "spa"
@@ -674,7 +674,7 @@
    },
    "pru":{
       "name":"Prussia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "lvn",
          "war",
@@ -687,7 +687,7 @@
    },
    "rom":{
       "name":"Rome",
-      "type":"I",
+      "type":"italy_staring_poimt",
       "neighbours":[
          "nap",
          "tys",
@@ -700,7 +700,7 @@
    },
    "ruh":{
       "name":"Ruhr",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "bel",
          "hol",
@@ -713,7 +713,7 @@
    },
    "rum":{
       "name":"Rumania",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "gal",
          "ukr",
@@ -728,7 +728,7 @@
    },
    "ser":{
       "name":"Serbia",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "rum",
          "bul",
@@ -742,7 +742,7 @@
    },
    "sev":{
       "name":"Sevastopol",
-      "type":"R",
+      "type":"russia_staring_poimt",
       "neighbours":[
          "mos",
          "ukr",
@@ -755,7 +755,7 @@
    },
    "sil":{
       "name":"Silesia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "ber",
          "pru",
@@ -769,7 +769,7 @@
    },
    "ska":{
       "name":"Skagerrak",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "nwy",
          "swe",
@@ -781,7 +781,7 @@
    },
    "smy":{
       "name":"Smyrna",
-      "type":"T",
+      "type":"turkey_staring_poimt",
       "neighbours":[
          "ank",
          "arm",
@@ -795,7 +795,7 @@
    },
    "spa":{
       "name":"Spain",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "por",
          "mao",
@@ -809,7 +809,7 @@
    },
    "stp":{
       "name":"St Petersburg",
-      "type":"R",
+      "type":"russia_staring_poimt",
       "neighbours":[
          "bar",
          "nwy",
@@ -823,7 +823,7 @@
    },
    "swe":{
       "name":"Sweden",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "nwy",
          "fin",
@@ -837,7 +837,7 @@
    },
    "syr":{
       "name":"Syria",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "arm",
          "smy",
@@ -848,7 +848,7 @@
    },
    "tri":{
       "name":"Trieste",
-      "type":"A",
+      "type":"austria_staring_poimt",
       "neighbours":[
          "bud",
          "ser",
@@ -863,7 +863,7 @@
    },
    "tun":{
       "name":"Tunis",
-      "type":"x",
+      "type":"supply_center",
       "neighbours":[
          "ion",
          "tys",
@@ -875,7 +875,7 @@
    },
    "tus":{
       "name":"Tuscany",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "rom",
          "tys",
@@ -888,7 +888,7 @@
    },
    "tyr":{
       "name":"Tyrolia",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "mun",
          "boh",
@@ -902,7 +902,7 @@
    },
    "tys":{
       "name":"Tyrrhenian Sea",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "tus",
          "rom",
@@ -917,7 +917,7 @@
    },
    "ukr":{
       "name":"Ukraine",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "mos",
          "sev",
@@ -930,7 +930,7 @@
    },
    "ven":{
       "name":"Venice",
-      "type":"I",
+      "type":"italy_staring_poimt",
       "neighbours":[
          "tyr",
          "pie",
@@ -945,7 +945,7 @@
    },
    "vie":{
       "name":"Vienna",
-      "type":"A",
+      "type":"austria_staring_poimt",
       "neighbours":[
          "boh",
          "gal",
@@ -958,7 +958,7 @@
    },
    "wal":{
       "name":"Wales",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "iri",
          "eng",
@@ -971,7 +971,7 @@
    },
    "war":{
       "name":"Warsaw",
-      "type":"R",
+      "type":"russia_staring_poimt",
       "neighbours":[
          "pru",
          "lvn",
@@ -985,7 +985,7 @@
    },
    "wes":{
       "name":"Western Mediterranean",
-      "type":"w",
+      "type":"water",
       "neighbours":[
          "spa",
          "lyo",
@@ -999,7 +999,7 @@
    },
    "yor":{
       "name":"Yorkshire",
-      "type":"l",
+      "type":"land",
       "neighbours":[
          "edi",
          "lvp",
