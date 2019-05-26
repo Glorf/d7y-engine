@@ -37,7 +37,7 @@ func handler(ctx context.Context, sesEvent events.SimpleEmailEvent) {
 
 
 		sess, err := session.NewSession(&aws.Config{
-			Region:aws.String("us-west-2")},
+			Region:aws.String("eu-west-1")},
 		)
 		svc := ses.New(sess)
 
