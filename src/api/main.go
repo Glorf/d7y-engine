@@ -75,9 +75,9 @@ func mockState(max int) []Unit {
 			break
 		}
 		var unitType string
-		if region.Type == "w" {
+		if region.Type == "water" {
 			unitType = "Fleet"
-		} else if region.Type == "l" || region.Type == "x" || region.Type == "A" || region.Type == "R" || region.Type == "I" || region.Type == "E" || region.Type == "T" || region.Type == "F" || region.Type == "G" {
+		} else if region.Type == "land" || region.Type == "supply_center" || region.Type == "austria_staring_poimt" || region.Type == "russia_staring_poimt" || region.Type == "italy_staring_poimt" || region.Type == "england_staring_poimt" || region.Type == "turkey_staring_poimt" || region.Type == "france_staring_poimt" || region.Type == "G" {
 			unitType = "Army"
 		}
 		newUnit := Unit{Region: id, Type: unitType, Player: players[rand.Intn(len(players))]}
