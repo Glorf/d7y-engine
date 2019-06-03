@@ -1,2 +1,4 @@
 .idea/
 go.sum
+.vscode
+node_modules/

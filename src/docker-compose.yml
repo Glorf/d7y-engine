@@ -17,3 +17,13 @@ services:
     command: redis-server --appendonly yes
     ports:
       - 6379:6379
+  admin-panel:
+    container_name: admin-panel
+    build: ./admin-panel
+    volumes:
+      - './admin-panel:/app'
+      - '/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
