@@ -1,0 +1,8 @@
+.narrow-input {
+  max-width: 60px;
+}
+
+.nation-row {
+  display: flex;
+  flex-direction: row
+}

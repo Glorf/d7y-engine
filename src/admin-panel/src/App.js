@@ -1,29 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import CreateGame from './CreateGame';
+import Home from './Home';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="welcome-screen">
-      <header className="header">
-        <h1>
-          Welcome to Agenda!
-        </h1>
-        <h3>
-          Turn-based game of political intrigue played via e-mail.
-        </h3>
-        <div className="login-buttons">
-          <button className="button">
-            Register
-          </button>
-          <button
-            className="button">
-            Log in
-          </button>
-        </div>
-      </header>
-    </div>
-  );
+class AppRouter extends React.Component {
+  render() {
+    return (
+      <Router>
+        <Route path="/" exact component={Home} />
+        <Route path="/new-game/" component={CreateGame} />
+      </Router>
+    );
+  }
 }
 
-export default App;
+export default AppRouter;
