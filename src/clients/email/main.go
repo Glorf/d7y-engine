@@ -5,98 +5,179 @@ import (
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
+	"os"
+	"strings"
 
-	"github.com/aws/aws-lambda-go/events"
+	"github.com/jhillyerd/enmime"
+    "github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/aws/aws-sdk-go/service/ses"
+	"github.com/aws/aws-sdk-go/service/s3"
 )
 
 const (
-	// The subject line for the email.
-	Subject = "Amazon SES Test (AWS SDK for Go)"
+	Subject = "Diplomacy Engine"
+	HtmlBody =  "<h1>Command received</p>"
+	TextBody = "Command received"
 
-	// The HTML body for the email.
-	HtmlBody =  "<h1>Amazon SES Test Email (AWS SDK for Go)</h1><p>This email was sent with " +
-		"<a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the " +
-		"<a href='https://aws.amazon.com/sdk-for-go/'>AWS SDK for Go</a>.</p>"
-
-	//The email body for recipients with non-HTML email clients.
-	TextBody = "This email was sent with Amazon SES using the AWS SDK for Go."
-
-	// The character encoding for the email.
-	CharSet = "UTF-8"
+	NEHtmlBody = "<h1>Requested game name was not found</h1></br>Please use another, or contact your game administrator to create new one"
+	NETextBody = "Requested game name was not found\nPlease use another, or contact your game administrator to create new one"
 )
+
+type Move struct {
+	Player string
+	Turn int
+	Command string
+}
+
+func sendMail(sess *session.Session, subject string, html string, text string, from string, to string) {
+	svc := ses.New(sess)
+
+	// Assemble the email.
+	input := &ses.SendEmailInput{
+		Destination: &ses.Destination{
+			CcAddresses: []*string{
+			},
+			ToAddresses: []*string{
+				aws.String(to),
+			},
+		},
+		Message: &ses.Message{
+			Body: &ses.Body{
+				Html: &ses.Content{
+					Charset: aws.String("UTF-8"),
+					Data:    aws.String(html),
+				},
+				Text: &ses.Content{
+					Charset: aws.String("UTF-8"),
+					Data:    aws.String(text),
+				},
+			},
+			Subject: &ses.Content{
+				Charset: aws.String("UTF-8"),
+				Data:    aws.String(subject),
+			},
+		},
+		Source: aws.String(from),
+		// Uncomment to use a configuration set
+		//ConfigurationSetName: aws.String(ConfigurationSet),
+	}
+
+	// Attempt to send the email.
+	result, err := svc.SendEmail(input)
+
+	// Display error messages if they occur.
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			switch aerr.Code() {
+			case ses.ErrCodeMessageRejected:
+				fmt.Println(ses.ErrCodeMessageRejected, aerr.Error())
+			case ses.ErrCodeMailFromDomainNotVerifiedException:
+				fmt.Println(ses.ErrCodeMailFromDomainNotVerifiedException, aerr.Error())
+			case ses.ErrCodeConfigurationSetDoesNotExistException:
+				fmt.Println(ses.ErrCodeConfigurationSetDoesNotExistException, aerr.Error())
+			default:
+				fmt.Println(aerr.Error())
+			}
+		} else {
+			// Print the error, cast err to awserr.Error to get the Code and
+			// Message from an error.
+			fmt.Println(err.Error())
+		}
+
+		return
+	}
+
+	fmt.Println(result)
+
+}
 
 func handler(ctx context.Context, sesEvent events.SimpleEmailEvent) {
 	for _, record := range sesEvent.Records {
 		sesRecord := record.SES
 
-		//To add in additional fields to publish to the logs add "snsRecord.'fieldname'"
-		fmt.Printf("Message = %s \n", sesRecord.Mail)
-
-
 		sess, err := session.NewSession(&aws.Config{
 			Region:aws.String("eu-west-1")},
 		)
-		svc := ses.New(sess)
 
-		// Assemble the email.
-		input := &ses.SendEmailInput{
-			Destination: &ses.Destination{
-				CcAddresses: []*string{
-				},
-				ToAddresses: []*string{
-					aws.String(sesRecord.Mail.Source),
-				},
-			},
-			Message: &ses.Message{
-				Body: &ses.Body{
-					Html: &ses.Content{
-						Charset: aws.String(CharSet),
-						Data:    aws.String(HtmlBody),
-					},
-					Text: &ses.Content{
-						Charset: aws.String(CharSet),
-						Data:    aws.String(TextBody),
-					},
-				},
-				Subject: &ses.Content{
-					Charset: aws.String(CharSet),
-					Data:    aws.String(Subject),
-				},
-			},
-			Source: aws.String(sesRecord.Mail.Destination[0]),
-			// Uncomment to use a configuration set
-			//ConfigurationSetName: aws.String(ConfigurationSet),
+		fmt.Printf("MessageID = %s \n", sesRecord.Mail.MessageID)
+
+		s3svc := s3.New(sess)
+
+		out, err := s3svc.GetObject(&s3.GetObjectInput {
+			Bucket: aws.String("diplomacy-mails"),
+			Key: aws.String(sesRecord.Mail.MessageID),
+		})
+		if err != nil {
+			fmt.Println("Cannot access s3 object")
+			fmt.Println(err.Error())
+			os.Exit(1)
 		}
 
-		// Attempt to send the email.
-		result, err := svc.SendEmail(input)
-
-		// Display error messages if they occur.
+		// Parse message body with enmime.
+		env, err := enmime.ReadEnvelope(out.Body)
 		if err != nil {
-			if aerr, ok := err.(awserr.Error); ok {
-				switch aerr.Code() {
-				case ses.ErrCodeMessageRejected:
-					fmt.Println(ses.ErrCodeMessageRejected, aerr.Error())
-				case ses.ErrCodeMailFromDomainNotVerifiedException:
-					fmt.Println(ses.ErrCodeMailFromDomainNotVerifiedException, aerr.Error())
-				case ses.ErrCodeConfigurationSetDoesNotExistException:
-					fmt.Println(ses.ErrCodeConfigurationSetDoesNotExistException, aerr.Error())
-				default:
-					fmt.Println(aerr.Error())
-				}
-			} else {
-				// Print the error, cast err to awserr.Error to get the Code and
-				// Message from an error.
-				fmt.Println(err.Error())
-			}
-
+			fmt.Print(err)
 			return
 		}
 
-		fmt.Println(result)
+		fmt.Printf("Message text = %s \n", env.Text)
+		fmt.Printf("Message html = %s \n", env.HTML)
+
+		dynamoSvc := dynamodb.New(sess)
+
+		item := &Move{
+			Turn: 1,
+			Player: sesRecord.Mail.Source,
+			Command: env.Text,
+		}
+
+		av, err := dynamodbattribute.MarshalMap(item)
+		if err != nil {
+			fmt.Println("Request not parsed properly")
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
+
+		gameDomain := strings.Split(sesRecord.Mail.Destination[0],"@")
+
+		tables, err := dynamoSvc.ListTables(&dynamodb.ListTablesInput{})
+		if err != nil {
+			fmt.Println("Cannot list DynamoDB tables:")
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
+
+		gameExists := false
+		for _, table := range tables.TableNames {
+			if gameDomain[0] == *table {
+				gameExists = true
+				break
+			}
+		}
+
+		if !gameExists {
+			sendMail(sess, Subject, NEHtmlBody, NETextBody, "no-reply@diplomacy.mbien.pl", sesRecord.Mail.Source)
+			continue
+		}
+
+		dynamoInput := &dynamodb.PutItemInput{
+			Item:      av,
+			TableName: aws.String(gameDomain[0]),
+		}
+
+		_, err = dynamoSvc.PutItem(dynamoInput)
+		if err != nil {
+			fmt.Println("Got error calling PutItem:")
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
+
+
+		sendMail(sess, Subject + " - game " + gameDomain[0], HtmlBody, TextBody, sesRecord.Mail.Destination[0], sesRecord.Mail.Source)
 	}
 }
 
