@@ -72,6 +72,10 @@ np. `F GoL C A Spa-Nap` / `F Gulf of Lyon C A Spain-Naples`
     jego czas reakcji zależy od odległości regionu od stolicy oraz dostępności drogi lądowej lub morskiej. Potwierdzenie
     odebrania rozkazu też dociera dopiero po jakimś czasie. (chociaż ten feature miałby bardziej zastosowanie w grze realtime)
 
-
 # Mapa graficzna
-(janek oceń) -> pewnie zdefiniowane punkty na svg i kolorowanie ich?
+  * Bazy - w tej chwili nie są uwzględnione w ładowaniu stanu gry w podglądzie, a powinny
+  * Upiększenie mapy
+    * Wyszukiwarka miejsc
+    * Dodanie nazw regionów bezpośrednio na mapie
+    * Dodanie legendy
+  * Responsywność
