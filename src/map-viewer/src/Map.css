@@ -1,0 +1,10 @@
+#nwg:hover path, #nth:hover path, #swi:hover polygon, #adr:hover polygon, #aeg:hover polygon, #alb:hover polygon, #ank:hover polygon, #apu:hover polygon, #arm:hover polygon, #bal:hover polygon, #bar:hover polygon, #bel:hover polygon, #ber:hover polygon, #bla:hover polygon, #boh:hover polygon, #bre:hover polygon, #bud:hover polygon, #bul:hover polyline, #bur:hover polygon, #cly:hover polygon, #con:hover polygon, #den:hover polygon, #eas:hover polygon, #edi:hover polygon, #eng:hover polygon, #fin:hover polygon, #gal:hover polygon, #gas:hover polygon, #gre:hover polygon, #lyo:hover polygon, #bot:hover polygon, #hel:hover polygon, #hol:hover polygon, #ion:hover polygon, #iri:hover polygon, #kie:hover polygon, #lvp:hover polygon, #lvn:hover polygon, #lon:hover polygon, #mar:hover polygon, #mao:hover polygon, #mos:hover polygon, #mun:hover polygon, #nap:hover polygon, #nao:hover polygon, #naf:hover polygon, #nwy:hover polygon, #par:hover polygon, #pic:hover polygon, #pie:hover polygon, #por:hover polygon, #pru:hover polygon, #rom:hover polygon, #ruh:hover polygon, #rum:hover polygon, #ser:hover polygon, #sev:hover polygon, #sil:hover polygon, #ska:hover polygon, #smy:hover polygon, #spa:hover polyline, #stp:hover polyline, #swe:hover polygon, #syr:hover polygon, #tri:hover polygon, #tun:hover polygon, #tus:hover polygon, #tyr:hover polygon, #tys:hover polygon, #ukr:hover polygon, #ven:hover polygon, #vie:hover polygon, #wal:hover polygon, #war:hover polygon, #wes:hover polygon, #yor:hover polygon {
+  fill: #ff0000;
+}
+.unit {
+  opacity: 0;
+  transition: 1s all ease;
+  fill:#FFFFFF;
+  stroke:#000000;
+  stroke-miterlimit:10;
+}

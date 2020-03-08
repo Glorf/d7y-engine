@@ -27,3 +27,13 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+  map-viewer:
+    container_name: map-viewer
+    build: ./map-viewer
+    ports:
+      - 3006:3000
+    volumes:
+      - './map-viewer:/app'
+      - '/app/node_modules'
+    environment:
+      - NODE_ENV=development
